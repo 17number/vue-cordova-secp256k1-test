@@ -71,14 +71,14 @@ export default class Secp256k1 extends Vue {
   }
   async initSecp256k1() {
     const s = new Date();
-    this.secp256k1Entity = await instantiateSecp256k1();
+    this.secp256k1Entity = await instantiateSecp256k1().catch();
     const e = new Date();
     this.times.initSecp256k1 = e.getTime() - s.getTime();
   }
   hashMessage() {
     this.msgHashed = Buffer.from(cryptoJs.SHA256(this.msg).toString(), 'hex');
-    this.signAndVerifyBtcTs();
     this.signAndVerifySecp256k1Node();
+    this.signAndVerifyBtcTs();
   }
   signAndVerifyBtcTs() {
     const s = new Date();
